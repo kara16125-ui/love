@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>សំណួរពិសេសសម្រាប់មនុស្សអឿ 💖</title>
+    <!-- បន្ថែម font ខ្មែរឱ្យកាន់តែស្អាត -->
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kantumruy Pro', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* ប្រអប់ Card បែបទំនើប */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(255, 75, 110, 0.15);
+            text-align: center;
+            width: 380px;
+            max-width: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transform: translateY(0);
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(255, 75, 110, 0.25);
+        }
+
+        /* រូបភាព GIF */
+        .gif-container {
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .gif-container img {
+            height: 100%;
+            border-radius: 15px;
+        }
+
+        /* អក្សរសំណួរ */
+        h1 {
+            color: #ff477e;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            line-height: 1.5;
+        }
+
+        /* ប៊ូតុង */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 55px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+        }
+
+        #yesBtn {
+            background: linear-gradient(45deg, #ff477e, #ff7096);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 20px rgba(255, 71, 126, 0.6);
+        }
+
+        #noBtn {
+            background-color: #94a3b8;
+            color: white;
+            position: absolute;
+            right: 30px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        /* បែបផែនបេះដូងហោះ (Hearts Effects) */
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp 4s linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="gif-container">
+            <!-- រូបភាពខ្លាឃ្មុំសួរផ្អែមល្ហែម -->
+            <img id="cuteGif" src="https://media.tenor.com/C7_7_pGsh7YAAAAi/tkthao219-bubududu.gif" alt="Cute Bear Asking">
+        </div>
+        
+        <h1 id="questionText">នឹកបងអត់? 🥺❤️</h1>
+        
+        <div class="btn-group">
+            <button id="yesBtn">នឹកតាស៎ 🥰</button>
+            <button id="noBtn">អត់នឹកទេ 😜</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const questionText = document.getElementById('questionText');
+        const cuteGif = document.getElementById('cuteGif');
+
+        // មុខងារឱ្យប៊ូតុង "អត់នឹកទេ" រត់គេចពេលប៉ះចំ
+        function flyAway() {
+            // គណនាទីតាំងចៃដន្យនៅក្នុងអេក្រង់
+            const maxX = window.innerWidth - noBtn.offsetWidth - 40;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+            
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        noBtn.addEventListener('mouseover', flyAway);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // ការពារកុំឱ្យចុចកើតលើទូរស័ព្ទ
+            flyAway();
+        });
+
+        // ពេលចុចប៊ូតុង "នឹកតាស៎"
+        yesBtn.addEventListener('click', () => {
+            questionText.innerHTML = "នឹកវិញដូចគ្នាណព្វចិត្ត! 💖😘";
+            // ដូរទៅរូបភាព GIF ឱបគ្នាផ្អែមល្ហែម
+            cuteGif.src = "https://media.tenor.com/9v6A99vD9u0AAAAi/bubu-dudu-bubu.gif";
+            
+            // លាក់ប៊ូតុង "អត់នឹកទេ" ចោល
+            noBtn.style.display = 'none';
+            
+            // ប្តូរប៊ូតុង Yes ឱ្យធំស្អាតចំកណ្តាល
+            yesBtn.style.transform = 'scale(1.2)';
+            yesBtn.disabled = true; 
+            yesBtn.style.cursor = 'default';
+            yesBtn.innerHTML = "I Love You! 🌸";
+
+            // បង្កើតធ្លាក់បេះដូងព្រមៗគ្នាជាច្រើន
+            for(let i=0; i<50; i++){
+                setTimeout(createHeart, i * 100);
+            }
+            // បន្តបង្កើតបេះដូងរហូត
+            setInterval(createHeart, 300);
+        });
+
+        // មុខងារបង្កើតបេះដូងហោះ
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // ចៃដន្យរូបរាងបេះដូង និងពណ៌ Cute Cute
+            const heartIcons = ['💖', '❤️', '💝', '🌸', '💕'];
+            heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+            
+            // ចៃដន្យទីតាំង និងទំហំ
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 25 + 15) + 'px';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's'; // ចន្លោះពី 3s ទៅ 5s
+            
+            document.body.appendChild(heart);
+
+            // លុបវាចោលវិញក្រោយពេលរត់ចប់ Animation
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
